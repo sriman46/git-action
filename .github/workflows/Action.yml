@@ -30,7 +30,7 @@ jobs:
 
       - name: Generate date file
         run: |
-          date > date.txt
+          date > time.txt
 
       - name: Configure Git
         run: |
