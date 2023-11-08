@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       runner_id:
-        description: "Please select the runner"
+        description: "Please pass the runner"
         required: true
         type: choice
         options:
@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          demo2: true
 
       - name: Generate date file
         run: |
@@ -41,12 +43,11 @@ jobs:
           git commit -m 'Date generated'
           git push
 
-  run_only_on_windows:
-    needs: demorun
-    runs-on: windows-latest
-    if: ${{ github.event.inputs.runner_id == 'windows-latest' }}
+  run_only_on_ubuntu:
+    if: ${{ github.event.inputs.runner_id == 'ubuntu-latest' }}
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Run a command on Windows
+      - name: Run a command on Ubuntu
         run: |
-          dir
+          ls -ltr
